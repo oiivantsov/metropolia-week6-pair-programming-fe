@@ -1,7 +1,12 @@
-export default useSignup = ({ setIsAuthenticated }) => {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const useSignup = ({ setIsAuthenticated }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const signup = async (email, password) => {
+  const handleSignup = async () => {
     try {
       const response = await fetch("/api/users/signup", {
         method: "POST",
@@ -25,5 +30,8 @@ export default useSignup = ({ setIsAuthenticated }) => {
     }
   };
 
-  return signup;
-}
+  return { email, setEmail, password, setPassword, handleSignup };
+
+};
+
+export default useSignup;
